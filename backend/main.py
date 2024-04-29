@@ -1,13 +1,12 @@
 from fastapi import FastAPI
 from fastapi.responses import StreamingResponse
-
 import cv2 as cv
 
 
 app = FastAPI()
 
 
-def get_raw_image():
+def return_raw_image():
     camera = cv.VideoCapture(0)
 
     while True:
@@ -22,5 +21,5 @@ def get_raw_image():
 
 
 @app.get("/raw")
-def read_root():
-    return StreamingResponse(get_raw_image(), media_type="multipart/x-mixed-replace;boundary=frame")
+def get_raw_image():
+    return StreamingResponse(return_raw_image(), media_type="multipart/x-mixed-replace;boundary=frame")
