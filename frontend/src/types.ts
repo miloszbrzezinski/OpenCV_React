@@ -1,2 +1,2 @@
 export type VisionApp = "face" | "hands"
-export type ImageType = "raw" | "black"
+export type ImageType = "raw" | "grayscale"

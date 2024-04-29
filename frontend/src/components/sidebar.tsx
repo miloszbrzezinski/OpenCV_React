@@ -13,7 +13,7 @@ export const Sidebar = ({visionApp, imageType, setVisionApp, setImageType}: Side
     return ( 
         <div className="sidebar">
             <button onClick={() => {setImageType("raw")}} className={imageType === "raw" ? "button-selected" : "button"}>Raw image</button>
-            <button onClick={() => {setImageType("black")}} className={imageType === "black" ? "button-selected" : "button"}>Black and white image</button>
+            <button onClick={() => {setImageType("grayscale")}} className={imageType === "grayscale" ? "button-selected" : "button"}>Black and white image</button>
             <div className='separator'/>
             <button onClick={() => {setVisionApp("face")}} className={visionApp === "face" ? "button-selected" : "button"}>Face detection</button>
             <button onClick={() => {setVisionApp("hands")}} className={visionApp === "hands" ? "button-selected" : "button"}>Hand detection</button>
