@@ -1,19 +1,17 @@
 import '../App.css';
-import { ImageType, VisionApp } from '../types';
+import { VisionApp } from '../types';
 
 interface SidebarProps {
     visionApp: VisionApp
-    imageType: ImageType
     setVisionApp: (app: VisionApp) => void;
-    setImageType: (image: ImageType) => void;
 }
 
-export const Sidebar = ({visionApp, imageType, setVisionApp, setImageType}: SidebarProps) => {
+export const Sidebar = ({visionApp, setVisionApp}: SidebarProps) => {
     
     return ( 
         <div className="sidebar">
-            <button onClick={() => {setImageType("raw")}} className={imageType === "raw" ? "button-selected" : "button"}>Raw image</button>
-            <button onClick={() => {setImageType("grayscale")}} className={imageType === "grayscale" ? "button-selected" : "button"}>Black and white image</button>
+            <button onClick={() => {setVisionApp("raw")}} className={visionApp === "raw" ? "button-selected" : "button"}>Raw image</button>
+            <button onClick={() => {setVisionApp("grayscale")}} className={visionApp === "grayscale" ? "button-selected" : "button"}>Black and white image</button>
             <div className='separator'/>
             <button onClick={() => {setVisionApp("face")}} className={visionApp === "face" ? "button-selected" : "button"}>Face detection</button>
             <button onClick={() => {setVisionApp("hands")}} className={visionApp === "hands" ? "button-selected" : "button"}>Hand detection</button>
