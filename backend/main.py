@@ -13,7 +13,7 @@ def get_raw_image():
     while True:
         success, frame = camera.read()
         if success:
-            buffer = cv.imencode('.jpg', frame)
+            ret, buffer = cv.imencode('.jpg', frame)
             frame = buffer.tobytes()
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
