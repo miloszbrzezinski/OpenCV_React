@@ -3,7 +3,6 @@ from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 import cv2 as cv
 import mediapipe
-import time
 
 
 app = FastAPI()
