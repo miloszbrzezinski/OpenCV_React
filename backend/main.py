@@ -8,6 +8,37 @@ import time
 
 app = FastAPI()
 
+
+def return_hands_detection():
+    """
+        Function returning image with hands detection
+    """
+    camera = cv.VideoCapture(0)
+
+    mp_hands = mediapipe.solutions.hands
+    hands = mp_hands.Hands()
+    mp_drawing = mediapipe.solutions.drawing_utils
+
+    while True:
+        success, frame = camera.read()
+        if success:
+            results = hands.process(frame)
+
+            if results.multi_hand_landmarks:
+                for handLms in results.multi_hand_landmarks:
+                    mp_drawing.draw_landmarks(frame, handLms, mp_hands.HAND_CONNECTIONS)
+                    
+            
+            ret, buffer = cv.imencode('.jpg', frame)
+            frame = buffer.tobytes()
+
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+        else:
+            camera.release()
+
+
+
 def return_face_detection():
     """
         Function returning image with face detection
@@ -82,3 +113,7 @@ def get_raw_image():
 @app.get("/face")
 def get_raw_image():
     return StreamingResponse(return_face_detection(), media_type="multipart/x-mixed-replace;boundary=frame")
+
+@app.get("/hands")
+def get_raw_image():
+    return StreamingResponse(return_hands_detection(), media_type="multipart/x-mixed-replace;boundary=frame")
