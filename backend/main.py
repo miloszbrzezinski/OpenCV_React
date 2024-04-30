@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from fastapi.responses import StreamingResponse
+from fastapi.responses import StreamingResponse, Response
 from pydantic import BaseModel
 import cv2 as cv
 import mediapipe
@@ -102,17 +102,41 @@ def return_grayscale_image():
 
 @app.get("/raw")
 def get_raw_image():
-    return StreamingResponse(return_raw_image(), media_type="multipart/x-mixed-replace;boundary=frame")
+    """
+    Stream the video feed from the webcam.
+    """
+    try:
+        return StreamingResponse(return_raw_image(), media_type="multipart/x-mixed-replace;boundary=frame")
+    except Exception as e:
+        return Response(content=f"Failed to start video capture: {str(e)}", status_code=500)
 
 
 @app.get("/grayscale")
-def get_raw_image():
-    return StreamingResponse(return_grayscale_image(), media_type="multipart/x-mixed-replace;boundary=frame")
+def get_gayscale_image():
+    """
+    Stream the video feed from the webcam in grayscale.
+    """
+    try:
+        return StreamingResponse(return_grayscale_image(), media_type="multipart/x-mixed-replace;boundary=frame")
+    except Exception as e:
+        return Response(content=f"Failed to start video capture: {str(e)}", status_code=500)
 
 @app.get("/face")
-def get_raw_image():
-    return StreamingResponse(return_face_detection(), media_type="multipart/x-mixed-replace;boundary=frame")
+def get_face_detection():
+    """
+    Stream the video feed from the webcam with face detected using MediaPipe.
+    """
+    try:
+        return StreamingResponse(return_face_detection(), media_type="multipart/x-mixed-replace;boundary=frame")
+    except Exception as e:
+        return Response(content=f"Failed to start video capture: {str(e)}", status_code=500)
 
 @app.get("/hands")
-def get_raw_image():
-    return StreamingResponse(return_hands_detection(), media_type="multipart/x-mixed-replace;boundary=frame")
+def get_hand_detection():
+    """
+    Stream the video feed from the webcam with hand landmarks detected using MediaPipe.
+    """
+    try:
+        return StreamingResponse(return_hands_detection(), media_type="multipart/x-mixed-replace;boundary=frame")
+    except Exception as e:
+        return Response(content=f"Failed to start video capture: {str(e)}", status_code=500)
