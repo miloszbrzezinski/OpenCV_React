@@ -57,9 +57,9 @@ Once both the backend and frontend are running, navigate to http://localhost:300
 
 ## Acknowledgments
 
-- OpenCV and MediaPipe for the powerful computer vision capabilities.
-- FastAPI for the incredibly fast and efficient backend.
-- React for the dynamic and responsive frontend.
+- OpenCV and MediaPipe for the computer vision capabilities.
+- FastAPI for the fast and efficient backend.
+- React for the frontend.
 
 
   
